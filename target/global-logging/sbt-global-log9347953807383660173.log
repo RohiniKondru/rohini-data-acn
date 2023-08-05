@@ -1,0 +1,10 @@
+[debug] > Exec(apply, None, None)
+[error] apply usage:
+[error] 
+[error] 
+[error] More command help available using 'help <command>' for:
+[error]   apply
+[error] 
+[error] apply
+[error]      ^
+[debug] > Exec(idea-shell, None, None)
