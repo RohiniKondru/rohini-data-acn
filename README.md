@@ -7,6 +7,126 @@ Spark - Standalone cluster (--master spark://[HOST]:7077)
 sc - spark context
 spark-shell
 spark-
+SPARK	Open SourceUnified Anlytics Engine		
+	Built on top of Apache Hadoop for large scale data processing		
+	Single platform to both batch and streaming data		
+	It has all features of Hadoop and abstracts for the challenges of Hadoop		
+	such as processing huge data both visual and unformatted data in memory ( can store input, in-process data and result)		
+	Spark is meant to run on a cluster of machines		
+	Hadoop YARN - Yet Another Resource Negotiator		
+SPARK FRAMEWORK			
+CLUSTER			
+	Processing of data at  scale and parallel requires a cluster of machines		
+	NODES		
+		Capacity can be expanded or reduced by adding or removing cluster nodes	
+STORAGE			
+	Spark is not constrained by the dependency of hadoop		
+	Spark supports the storage systems include Apache Cassandra, S3 and Kudu		
+	Spark also supports local file system during development & testing phase		
+CLUSTER MANAGER			
+	Spark Standalone		
+		It is used for development and testing but not for production parameters	
+	Hadoop YARN	 	 
+		It is used for adding or removing resources with production parameters	
+	Apache Mesos		
+	Kubernetes		
+		These two can be used to orchestrate your spark executions	
+SPARK CORE			
+		Think as a library which contains distributed task dispatching, basic I/O and data structures inorder to store and manipute data	
+	RDD	Resilient Distributed Data Set	
+		Core operations revolve around RDD	
+		RDD are distributed data structures that can be operated on in parallel	
+	SHELL		
+			
+	APIs		
+			
+	DRIVER		
+			
+Platforms That Sit on Top of SPARK CORE			
+	SPARK SQL		
+	SPARK STREAMING		
+	MLlib		
+	GraphX		
+			
+SPARK SQL			
+	Includes Data Frames abstraction which supports for semi structured data		
+	Enables transformation on data using SQL or SQL like operations		
+	Data Frames API is available in Java, Python, Scala, R		
+	DATA FRAMES		
+		It provides single interface to work with data from several data sources (json, parquet, avro etc)	
+Running Spark Application			
+	It creates a Driver program with Spark Session		
+	Driver program is  by Cluster Master node and responsible for generating tasks.		
+	Resources are allocated by Cluster Manager		
+	Resources are on the worker nodes. It commnicates wth driver program and spark session		
+DRIVER PROGRAM			
+	holds whole declaration of all data processing tasks defined in the application		
+	Runs on a separate JVM in the spark master node		
+			
+Services Hosted by Driver			
+	DAG Scheduler		
+	TASK Scheduler		
+	SPARK UI		
+			
+			
+DAG Scheduler			
+	Directed A--- Graph		
+	The work flow of transformations which needs to be applied on the data		
+TASK Scheduler			
+	manages individual tasks in transformation		
+SPARK UI			
+	to keep track of different nodes in the cluster and jobs and applications that running on it		
+SERIALIZER			
+	To simplifies the communication of objects between various components		
+			
+SPARK SESSION			
+	Created by Spark Application and hosted by Driver Program		
+	All spark functionality is accessed through Spark Session		
+	Encapsulates SparkContext, HiveContext, SQL Context		
+			
+Data Processing Tasks			
+	1. Defining Transformations		
+	2. Creating Execution Stages		
+	3. Stages Split into Individual Tasks		
+			
+STRUCTURED STREAMING			
+	To process the streaming data		
+	Stream procesing engine built on Spark SQL		
+	DataFrame API for stream processing		
+	Continuous processing rather than micro batch processing		
+	Allows operations based on event time		
+	Integrates with event streaming platform such as Kafka		
+			
+OUTPUT MODES			
+	APPEND		
+	COMPLETE		
+	UPDATE	Transformations are applied on newly modified rows	
+			
+Supported Streaming Operations			
+	Select and Where clauses		
+	Aggregation 		
+	Window operations on event time as well as time column in data		
+	Joins between different Streaming Data Formats		
+Unsupported Streaming Operations			
+	Aggregations on multiple streaming data 		
+	Limit and top N		
+	Certain Outer joins		
+						
+To unpack the zip file from cmd line			
+	  --tar -xvzf sparkdownloadfile		
+	start-worker.sh spark://Lonycorns-Air.Dlink:7077		
+	stop-worker.sh spark://		
+	stop-master.sh		
+			
+To create Config file			
+	cp spark-env.sh.template  spark-env.sh		
+		Copy the tempate file and reanme 	
+	nano spark-env.sh		
+		Open the file with nano editor				
+			
+	spark-submit  --help		
+		Used to launch spark applications in a spark cluster	
+
 
 scala> sc.parallelize(1 to 10)
 scala> res1.collect
@@ -69,6 +189,69 @@ Hadoop Yarn - yet another resource negotiator
 Spark - Standalone cluster (--master spark://[HOST]:7077)
 Mesos 
 
+DATA STREAMING:
+INGESTION 
+PROCESSING AND REACTION: REAL TIME (MILLISECONDS) , NEARLY REAL TIME (SECONDS), BATCH(MINUTES, HOURS, DAYS)
+**Apache Kafka**
+Apache Kafka is an open-source streaming system.
+Kafka is used for building real-time streaming data pipelines that reliably get data between many independent systems or applications.
+Kafka uses Zookeeper to store metadata about brokers, topics and partitions.
+Kafka Topics
+The core abstraction Kafka provides for a stream of records — is the topic.
+Each record in a topic consists of a key, a value, and a timestamp.
+A topic can have zero, one, or many consumers that subscribe to the data written to it.
+The Kafka cluster durably persists all published records using a configurable retention period — no matter if those records have been consumed or not.
+
+Partitions
+Each partition in a topic is an ordered, immutable sequence of records that is continually appended to a structured commit log.\\
+
+Each partition has one broker which acts as the “leader” that handles all read and write requests for the partition, and zero or more brokers which act as “followers” that passively replicate the leader. Each broker acts as a leader for some of its partitions and a follower for others so load is well balanced within the cluster.
+Kafka Producers and Consumers
+Producers publish data to the topics of their choice.
+Consumers can subscribe to topics and receive messages. Consumers can act as independent consumers or be a part of some consumer group
+
+Start Kafka environment:
+-----Start ZooKeeper services---
+%KAFKA_HOME%/bin/windows/kafka-server-start.bat %KAFKA_HOME%/config/server.properties
+----Start Kafka server-----
+%KAFKA_HOME%/bin/windows/kafka-server-start.bat %KAFKA_HOME%/config/server.properties
+-----verify by running jps command----
+----Create a Kafka topic-------
+%KAFKA_HOME%/bin/windows/kafka-topics.bat --create --topic kontext-events --bootstrap-server localhost:9092
+Created topic kontext-events.
+------Describe Kafka topic-------
+%KAFKA_HOME%/bin/windows/kafka-topics.bat --describe --topic kontext-events --bootstrap-server localhost:9092
+Topic: kontext-events   TopicId: CAT_sYTqQpOLc9cXcuLEQw PartitionCount: 1       ReplicationFactor: 1    Configs:
+        Topic: kontext-events   Partition: 0    Leader: 0       Replicas: 0     Isr: 0
+---------Write some events into the topic-----
+%KAFKA_HOME%/bin/windows/kafka-console-producer.bat --topic kontext-events --bootstrap-server localhost:9092
+>This is first event
+>This is second event
+>This is third event
+>This is fourth event
+>this is fifth event
+>thisi is sixth
+>seventh event
+>eighth
+>Terminate batch job (Y/N)? y
+---Press Ctrl + C to terminate this Console producer client. ---
+------------------Read the events in the topic-----
+%KAFKA_HOME%/bin/windows/kafka-console-consumer.bat --topic kontext-events --from-beginning --bootstrap-server localhost:9092
+This is first event
+This is second event
+This is third event
+This is fourth event
+this is fifth event
+thisi is sixth
+seventh event
+eighth
+---Press Ctrl + C to terminate this Console producer client. ---
+-------------------------Shutdown Kafka services-------------------------
+%KAFKA_HOME%/bin/windows/kafka-server-stop.bat %KAFKA_HOME%/config/server.properties
+%KAFKA_HOME%/bin/windows/zookeeper-server-stop.bat %KAFKA_HOME%/config/zookeeper.properties
+
+---SparkSession.readStream---
+To read from Kafka for streaming queries
 
 
 
